@@ -1,28 +1,35 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract ExampleContract {
-    address private owner;
-    uint public balance;
+contract Functions {
+    address public owner;
+    uint256 public value;
 
-    constructor() public {
+    constructor() {
         owner = msg.sender;
     }
 
-    function sendEther() public payable {
-        require(msg.value > 0, "You must send some ether");
-        balance += msg.value;
+    function setValue(uint256 _newValue) external onlyOwner {
+        require(_newValue != 0, "The new value cannot be zero");
+        value = _newValue;
     }
 
-    function withdrawEther(uint amount) public {
-        require(msg.sender == owner, "Only the owner can withdraw ether");
-        require(amount <= balance, "Not enough ether to withdraw");
-        msg.sender.transfer(amount);
-        balance -= amount;
-        assert(balance >= 0, "Balance cannot be negative");
+    function assertFunction(uint256 _num) external pure returns (uint256) {
+        assert(_num != 0);
+        return _num;
     }
 
-    function forceRevert() public {
-        revert("This function will always revert");
+    function revertFunction(uint256 _num) external pure returns (uint256) {
+        require(_num != 0, "The number cannot be zero");
+        return _num;
+    }
+
+    function retrieve() external view returns (uint256) {
+        return value;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the owner can call this function");
+        _;
     }
 }
