@@ -1,0 +1,28 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract ExampleContract {
+    address private owner;
+    uint public balance;
+
+    constructor() public {
+        owner = msg.sender;
+    }
+
+    function sendEther() public payable {
+        require(msg.value > 0, "You must send some ether");
+        balance += msg.value;
+    }
+
+    function withdrawEther(uint amount) public {
+        require(msg.sender == owner, "Only the owner can withdraw ether");
+        require(amount <= balance, "Not enough ether to withdraw");
+        msg.sender.transfer(amount);
+        balance -= amount;
+        assert(balance >= 0, "Balance cannot be negative");
+    }
+
+    function forceRevert() public {
+        revert("This function will always revert");
+    }
+}
