@@ -1,8 +1,8 @@
-# Value Manager
+# ETH AVAX
 
 ## DESCRIPTION
 
-Value Manager is a simple Solidity smart contract for managing a single integer value with specific constraints. It includes basic functions for setting, retrieving, and validating the value, ensuring only the contract owner can modify it.
+It is a simple Solidity smart contract for managing a single integer value with specific constraints. It includes basic functions for setting, retrieving, and validating the value, ensuring only the contract owner can modify it.
 
 ## ## Getting Started
 
